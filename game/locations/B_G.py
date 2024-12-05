@@ -181,18 +181,33 @@ class Armor_room(location.SubLocation): #North to get here
         self.verbs['south'] = self
         self.verbs['east'] = self
         self.verbs['west'] = self
-    def enter (self):
-        description = "Upon entry you notice scattered pieces of armor and a empty ."
-        display.announce(description)
+        self.verbs['pickup'] = self
+        self.verbs['place'] = self
+        self.pickedup = []
+        self.floor_items = ["bascinet", "byrnie", "chausses", "aegis", "strop", "canthus", "rapier", "katana"]
+        self.mannequin_items = []
+        self.required_items = ["bascinet", "byrnie", "chausses", "rapier"]
+    #list of words picked up, on the floor, on the mannequin. where the value changes. description is based on the state of the lists
+    
+
+    def enter (self):   #pickup the armor pieces scattered amongst garbage
+        display.announce("Upon entry you notice scattered pieces of armor, 2 statues and one of the two are un-armored.")
+    #
     def process_verb (self, verb, cmd_list, nouns):
         if (verb == "south"):
             config.the_player.next_loc = self.main_location.locations["room"]
         if (verb == "north" or verb == "east" or verb == "west"):
-            config.the_player.next_loc = self.main_location.locations["shrine"]
+            config.the_player.next_loc = self.main_location.locations["door"]
+        if verb == "pickup":
+            self.pickedup.append()
+
 
         #add a comment for when they complete the puzzle(assembling the armor on the statuette, a unlocking sound can be heard to the east.
 
 #class next_loct #east to get here
+class Ornate_door(location.SubLocation):
+    pass
+
 #class next_loct #north to get here #back to the beach
 
 
